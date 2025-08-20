@@ -1,5 +1,13 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { DialogRef } from '@angular/cdk/dialog';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Produto } from 'src/app/shared/models/produto';
+
+type CadastroProdutoForm = {
+  nome: FormControl<string | null>,
+  taxaJuros : FormControl<number | null>,
+  prazoMaximo : FormControl<number | null>
+}
 
 @Component({
   selector: 'app-cadastro-produto',
@@ -7,15 +15,24 @@ import { Produto } from 'src/app/shared/models/produto';
   styleUrls: ['./cadastro-produto.component.scss']
 })
 export class CadastroProdutoComponent {
-  @Output() produto : EventEmitter<Produto> = new EventEmitter();
-  @Output() cancelar : EventEmitter<undefined> = new EventEmitter();
+
+  formGroup : FormGroup<CadastroProdutoForm> = new FormGroup<CadastroProdutoForm>({
+    nome: new FormControl<string | null>(null, [Validators.required]),
+    taxaJuros: new FormControl<number | null>(null, [Validators.required]),
+    prazoMaximo : new FormControl<number | null>(null, [Validators.required])
+  });
+
+  constructor(private readonly dialogRef : DialogRef<Produto, CadastroProdutoComponent>){}
 
   cadastrarProduto(){
-    this.produto.emit(new Produto('b', "Proudot tes", 1.45, 6));
+    if(this.formGroup.valid){
+      const {nome, taxaJuros, prazoMaximo} = this.formGroup.value;
+      this.dialogRef.close(Produto.paraCadastrar(nome!, taxaJuros!, prazoMaximo!));
+    }
   }
 
   cancelarCadastro(){
-    this.cancelar.emit();
+    this.dialogRef.close();
   }
 
 }

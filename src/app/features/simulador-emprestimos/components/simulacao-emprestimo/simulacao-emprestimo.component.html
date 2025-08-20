@@ -1,1 +1,33 @@
-<p>simulacao-emprestimo works!</p>
+<div class="flex flex-col gap-8 p-2 max-w-screen-lg mx-auto">
+    <h1 class="text-lg" >Simular Empréstimo</h1>
+
+    <div class="flex gap-4">
+        <div class="flex flex-col gap-2">
+            <label class="block" for="seletor-produto">Produto de Empréstimo</label>
+            <select class="default-input block" name="seletor-produto" id="seletor-produto">
+                <option value="1">Consignado CAIXA Trabalhador</option>
+                <option value="2">Consignado CAIXA</option>
+                <option value="3">Empréstimo Pessoa Física</option>
+                <option value="4">Empréstimo Pessoa Jurídica</option>
+            </select>
+        </div>
+        <div class="flex flex-col gap-2" >
+            <label for="valor">Valor do Empréstimo</label>
+            <input class="default-input" type="text" name="valor" id="valor">
+        </div>
+        <div class="flex flex-col gap-2">
+            <label for="meses">Quantidade de Meses</label>
+            <input class="default-input" type="text" name="meses" id="meses">
+        </div>
+        <div class="flex flex-col justify-end ml-auto">
+            <button class="rounded bg-orange py-2 px-4 text-white" >Simular</button>
+        </div>
+    </div>
+
+    <div>
+        <h2>Resultado da Simulação do Empréstimo</h2>
+
+
+
+    </div>
+</div>

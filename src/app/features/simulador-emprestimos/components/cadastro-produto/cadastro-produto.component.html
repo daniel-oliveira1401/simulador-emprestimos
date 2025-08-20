@@ -1,5 +1,29 @@
-<div>
-    <h2>Cadastrar produto</h2>
-    <button (click)="cancelarCadastro()" >Cancelar</button>
-    <button (click)="cadastrarProduto()">Cadastrar</button>
+<div class="w-full md:w-min bg-white rounded overflow-hidden">
+    <div class="px-4 py-6 bg-blue text-white">
+        <h2>Cadastrar produto</h2>
+    </div>
+    <div class="px-4 py-6">
+        
+        <form [formGroup]="formGroup" class="flex flex-col gap-2">
+            <div class="flex flex-col" >
+                <label class="block" for="input-nome">Nome</label>
+                <input [formControl]="this.formGroup.controls.nome" class="block default-input" type="text" name="input-nome" id="input-nome">
+            </div>
+            <div class="md:flex gap-2 mb-4">
+                <div class="flex flex-col">
+                    <label class="block" for="input-taxa-juros">Taxa de Juros (% ao Ano)</label>
+                    <input [formControl]="this.formGroup.controls.taxaJuros" class="block default-input" type="text" name="input-taxa-juros" id="input-taxa-juros">
+                </div>
+                <div class="flex flex-col">
+                    <label class="block" for="input-prazo-maximo">Prazo Máximo (meses)</label>
+                    <input [formControl]="this.formGroup.controls.prazoMaximo" class="block default-input" type="text" name="input-prazo-maximo" id="input-prazo-maximo">
+                </div>
+            </div>
+            <div class="flex gap-2 justify-end">    
+                <button type="button" class="block rounded border border-blue text-blue p-2 hover:bg-blue hover:text-white" (click)="cancelarCadastro()">Cancelar</button>
+                <button [disabled]="!this.formGroup.valid" class="disabled:opacity-50 enabled:cursor-pointer block rounded p-2 bg-orange text-white enabled:hover:bg-dark-orange" (click)="cadastrarProduto()">Cadastrar</button>
+            </div>
+        </form>
+
+    </div>
 </div>

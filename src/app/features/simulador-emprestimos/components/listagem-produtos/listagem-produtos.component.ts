@@ -1,5 +1,7 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Dialog } from '@angular/cdk/dialog';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Produto } from 'src/app/shared/models/produto';
+import { CadastroProdutoComponent } from '../cadastro-produto/cadastro-produto.component';
 
 @Component({
   selector: 'app-listagem-produtos',
@@ -15,14 +17,26 @@ export class ListagemProdutosComponent {
     new Produto('a', "Empréstimo Consignado Anual", 1.8, 12),
   ];
 
-  @ViewChild('modalCadastroProduto') modalCadastroProduto! : ElementRef<HTMLDialogElement>;
+  constructor(
+    private readonly dialog : Dialog
+  ){}
 
   abrirModalCadastroProduto(){
-    this.modalCadastroProduto.nativeElement.showModal();
+    
+    const dialogRef = this.dialog.open<Produto>(CadastroProdutoComponent, {
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-dark-backdrop'
+    });
+    
+    dialogRef.closed.subscribe((produto)=> {
+      if(produto){
+        this.cadastrarProduto(produto);
+      }
+    })
   }
 
   fecharModalCadastroProduto(){
-    this.modalCadastroProduto.nativeElement.close();
+    
   }
 
   cadastrarProduto(produto : Produto){

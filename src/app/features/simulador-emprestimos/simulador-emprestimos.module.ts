@@ -9,6 +9,8 @@ import { CadastroProdutoComponent } from './components/cadastro-produto/cadastro
 import { NavbarComponent } from 'src/app/shared/components/navbar/navbar.component';
 import { CardProdutoComponent } from './components/card-produto/card-produto.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DialogModule } from '@angular/cdk/dialog';
+import { ParcelaComponent } from './components/simulacao-emprestimo/components/parcela/parcela.component';
 
 
 @NgModule({
@@ -17,12 +19,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     ListagemProdutosComponent,
     SimulacaoEmprestimoComponent,
     CadastroProdutoComponent,
-    CardProdutoComponent
+    CardProdutoComponent,
+    ParcelaComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     NavbarComponent,
+    DialogModule,
     SimuladorEmprestimosRoutingModule
   ]
 })

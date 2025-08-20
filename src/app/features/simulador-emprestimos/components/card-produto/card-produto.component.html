@@ -1,4 +1,4 @@
-<div class="p-4 shadow-md rounded border border-slate-700 border-solid">
+<div class="p-4 text-black shadow-md rounded border border-blue border-solid">
     <h3 class="mb-4">{{produto.nome}}</h3>
     <div class="flex gap-2 mb-8">
         <div>
@@ -9,6 +9,6 @@
         </div>
     </div>
     <div class="flex justify-end">
-        <button class="rounded border border-orange-700 text-orange-700 p-1 hover:bg-orange-700 hover:text-white">Simular Empréstimo</button>
+        <button routerLink="{{'/simulacao/' + produto.id}}" class="rounded border border-orange text-orange px-2 py-1 hover:bg-orange hover:text-white">Simular Empréstimo</button>
     </div>
 </div>
