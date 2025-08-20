@@ -1,0 +1,22 @@
+<div class="p-4 max-w-screen-lg mx-auto">
+    <div class="flex justify-between mb-4">
+        <div>
+            <input class="border border-solid border-slate-700 rounded p-2" placeholder="Buscar Empréstimo" type="text">
+        </div>
+        <div>
+            <button (click)="abrirModalCadastroProduto()" class="p-2 bg-orange-700 text-white rounded">Cadastrar Novo Produto</button>
+        </div>
+    </div>
+    <div class="gap-4 grid custom-auto-size-grid">
+        
+        <div *ngFor="let produto of produtos">
+            <app-card-produto [produto]="produto"></app-card-produto>
+        </div>
+
+    </div>
+
+</div>
+
+<dialog #modalCadastroProduto>
+    <app-cadastro-produto (cancelar)="fecharModalCadastroProduto()" (produto)="cadastrarProduto($event)"></app-cadastro-produto>
+</dialog>
