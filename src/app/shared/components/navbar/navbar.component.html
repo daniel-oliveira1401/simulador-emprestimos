@@ -1,5 +1,10 @@
-<nav class="flex p-2 bg-blue">
-    <ul class="list-none text-white">
-        <button routerLink="/">Simulador de Empréstimos</button>
-    </ul>
+<nav class="flex px-2 py-4 bg-blue justify-center mb-4">
+    <div class="max-w-screen-lg grow">
+        <ul class="flex items-center gap-2 text-2xl font-medium list-none text-white">
+            <div routerLink="/" class="font-lg" *ngIf="mostrarBotaoVoltar">
+                <svg class="w-10 h-10 fill-white" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg>
+            </div>
+            <button routerLink="/">Simulador de Empréstimos</button>
+        </ul>
+    </div>
 </nav>

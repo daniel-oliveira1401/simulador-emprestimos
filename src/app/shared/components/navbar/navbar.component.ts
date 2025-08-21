@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from "src/app/app-routing.module";
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, EventType, NavigationEnd, Router, RouterModule } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -11,5 +12,18 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-
+  
+  mostrarBotaoVoltar : boolean = false;
+  
+  constructor(
+    private readonly router : Router
+  ){
+    this.router.events
+      .pipe(filter(event => event.type == EventType.NavigationEnd))
+      .subscribe((event) => {
+        if(event instanceof NavigationEnd)
+          this.mostrarBotaoVoltar = event.urlAfterRedirects !== '/';
+      });
+  }
+  
 }

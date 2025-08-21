@@ -10,11 +10,11 @@ import { CadastroProdutoComponent } from '../cadastro-produto/cadastro-produto.c
 })
 export class ListagemProdutosComponent {
   produtos : Produto[] = [
-    new Produto('a', "Empréstimo Consignado Anual", 1.8, 12),
-    new Produto('a', "Empréstimo Consignado Anual", 1.8, 12),
-    new Produto('a', "Empréstimo Consignado Anual", 1.8, 12),
-    new Produto('a', "Empréstimo Consignado Anual", 1.8, 12),
-    new Produto('a', "Empréstimo Consignado Anual", 1.8, 12),
+    new Produto(crypto.randomUUID(), "Empréstimo Consignado Anual", 1.8, 12),
+    new Produto(crypto.randomUUID(), "Empréstimo Consignado Anual", 1.8, 12),
+    new Produto(crypto.randomUUID(), "Empréstimo Consignado Anual", 1.8, 12),
+    new Produto(crypto.randomUUID(), "Empréstimo Consignado Anual", 1.8, 12),
+    new Produto(crypto.randomUUID(), "Empréstimo Consignado Anual", 1.8, 12),
   ];
 
   constructor(
