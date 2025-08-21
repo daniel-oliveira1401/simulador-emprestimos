@@ -8,6 +8,7 @@ export class SimularEmprestimoResponse {
         public valorSolicitado : number,
         public prazoMesesSolicitado : number,
         public taxaJurosEfetivaMensal : number,
+        public valorTotalComJuros : number,
         public parcelasCalculadas : Parcela[]
     ){}
 

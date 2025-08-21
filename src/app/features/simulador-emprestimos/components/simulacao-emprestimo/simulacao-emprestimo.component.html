@@ -2,10 +2,10 @@
     
     <h1 class="text-2xl text-blue font-bold">Simular Empréstimo</h1>
     
-    <div class="flex flex-col md:flex-row gap-4">
+    <form (ngSubmit)="simularEmprestimo()" [formGroup]="formSimulacao" class="flex flex-col md:flex-row gap-4">
         <div class="flex flex-col gap-2">
             <label class="font-medium block" for="seletor-produto">Produto de Empréstimo</label>
-            <select class="default-input block" name="seletor-produto" id="seletor-produto">
+            <select [formControl]="formSimulacao.controls.produto" class="default-input block" name="seletor-produto" id="seletor-produto">
                 <option value="" disabled selected hidden>Selecione um produto</option>
                 <option value="1">Consignado CAIXA Trabalhador</option>
                 <option value="2">Consignado CAIXA</option>
@@ -15,49 +15,52 @@
         </div>
         <div class="flex flex-col gap-2" >
             <label class="font-medium" for="valor">Valor do Empréstimo</label>
-            <input placeholder="ex: R$ 0000,00" class="default-input" type="text" name="valor" id="valor">
+            <input [formControl]="formSimulacao.controls.valor" placeholder="ex: R$ 0000,00" class="default-input" type="text" name="valor" id="valor">
         </div>
         <div class="flex flex-col gap-2">
             <label class="font-medium" for="meses">Quantidade de Meses</label>
-            <input placeholder="ex: 12" class="default-input" type="text" name="meses" id="meses">
+            <input [formControl]="formSimulacao.controls.prazo" placeholder="ex: 12" class="default-input" type="text" name="meses" id="meses">
         </div>
         <div class="flex flex-col justify-end ml-auto">
-            <button class="font-medium rounded bg-orange py-2 px-4 text-white" >Simular</button>
+            <button class="font-medium rounded bg-orange py-2 px-4 text-white">Simular</button>
         </div>
-    </div>
+    </form>
 
-    <div>
-        <h2 class="mb-4 text-lg text-blue font-bold">Simulação para <span class="text-orange" >Consignado CAIXA Trabalhador</span></h2>
+    <section *ngIf="resultadoSimulacao">
+        <h2 class="mb-4 text-lg text-blue font-bold">Simulação para <span class="text-orange" >{{resultadoSimulacao.produto.nome}}</span></h2>
         <div class="bg-gray p-2 grid place-items-start grid-cols-2 sm:grid-cols-3 gap-2 mb-2 text-sm">
             <div class="flex flex-col">
                 <span class="font-medium">Valor solicitado:</span>
-                <span>R$ 10.000,00</span>
+                <span>R$ {{resultadoSimulacao.valorSolicitado}}</span>
             </div>
             <div class="flex flex-col">
                 <span class="font-medium">Prazo:</span>
-                <span>12 meses</span>
+                <span>{{resultadoSimulacao.prazoMesesSolicitado}} meses</span>
             </div>
             <div class="flex flex-col">
                 <span class="font-medium">Taxa efetiva mensal:</span>
-                <span>1,39%</span>
+                <span>{{resultadoSimulacao.taxaJurosEfetivaMensal}}%</span>
             </div>
             <div class="flex flex-col">
                 <span class="font-medium">Parcela mensal:</span>
-                <span>R$ 931,50</span>
+                <span>R$ {{resultadoSimulacao.parcelasCalculadas.at(0)?.valorTotalParcela}}</span>
             </div>
             <div class="col-span-2 flex flex-col">
                 <span class="font-medium">Valor total com juros:</span>
-                <span>R$ 11.178,00</span>
+                <span>R$ {{resultadoSimulacao.valorTotalComJuros}}</span>
             </div>
         </div>
         <h2 class="text-lg text-blue font-bold mb-4">Parcelas</h2>
         <div class="flex flex-col gap-2">
-            <app-parcela></app-parcela>
-            <app-parcela></app-parcela>
-            <app-parcela></app-parcela>
-            <app-parcela></app-parcela>
-            <app-parcela></app-parcela>
+            <app-parcela 
+                *ngFor="let parcela of resultadoSimulacao.parcelasCalculadas" 
+                [parcela]="parcela"
+            ></app-parcela>
+            
         </div>
 
-    </div>
+    </section>
+    <section *ngIf="!resultadoSimulacao">
+        <h4>Faça uma simulação acima e visualize os resultado aqui.</h4>
+    </section>
 </div>

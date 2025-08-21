@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 import { URL_BASE_API_PRODUTO_EMPRESTIMO } from 'src/app/app.module';
 import { CadastrarProdutoRequest } from 'src/app/shared/models/cadastar-produto-request';
 import { ListarProdutosResponse } from 'src/app/shared/models/listar-produtos-response';
 import { Produto } from 'src/app/shared/models/produto';
+import { ResultadoSimulacaoEmprestimo } from 'src/app/shared/models/resultado-simulacao-emprestimo';
 import { SimularEmprestimoRequest } from 'src/app/shared/models/simular-emprestimo-request';
 import { SimularEmprestimoResponse } from 'src/app/shared/models/simular-emprestimo-response';
 
@@ -50,11 +51,13 @@ export class ProdutoEmprestimoService {
     })
   }
 
-  simularEmprestimo(produto : Produto, valorEmprestimo : number, periodoMeses : number){
+  simularEmprestimo(produto : Produto, valorEmprestimo : number, periodoMeses : number) : Observable<ResultadoSimulacaoEmprestimo>{
 
     const request = new SimularEmprestimoRequest(produto, valorEmprestimo, periodoMeses);
 
-    return this.httpClient.post<SimularEmprestimoResponse>(this.urlBase + "/simulacoes", request);
+    return this.httpClient
+      .post<SimularEmprestimoResponse>(this.urlBase + "/simulacoes", request)
+      .pipe(map(r => r as ResultadoSimulacaoEmprestimo));
 
   }
 

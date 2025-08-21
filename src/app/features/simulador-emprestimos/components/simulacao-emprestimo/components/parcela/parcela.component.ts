@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Parcela } from 'src/app/shared/models/parcela';
 
 @Component({
   selector: 'app-parcela',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./parcela.component.scss']
 })
 export class ParcelaComponent {
-
+  @Input({required: true}) parcela! : Parcela;
 }

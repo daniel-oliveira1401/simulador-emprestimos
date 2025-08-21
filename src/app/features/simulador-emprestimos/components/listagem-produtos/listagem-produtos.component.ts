@@ -2,24 +2,31 @@ import { Dialog } from '@angular/cdk/dialog';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Produto } from 'src/app/shared/models/produto';
 import { CadastroProdutoComponent } from '../cadastro-produto/cadastro-produto.component';
+import { ProdutoEmprestimoService } from 'src/app/core/services/produto-emprestimo.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-listagem-produtos',
   templateUrl: './listagem-produtos.component.html',
   styleUrls: ['./listagem-produtos.component.scss']
 })
-export class ListagemProdutosComponent {
-  produtos : Produto[] = [
-    new Produto(crypto.randomUUID(), "Empréstimo Consignado Anual", 1.8, 12),
-    new Produto(crypto.randomUUID(), "Empréstimo Consignado Anual", 1.8, 12),
-    new Produto(crypto.randomUUID(), "Empréstimo Consignado Anual", 1.8, 12),
-    new Produto(crypto.randomUUID(), "Empréstimo Consignado Anual", 1.8, 12),
-    new Produto(crypto.randomUUID(), "Empréstimo Consignado Anual", 1.8, 12),
-  ];
+export class ListagemProdutosComponent implements OnInit {
+  
+  produtos : Produto[] = [];
+  produtosSubscription : Subscription | undefined;
 
   constructor(
+    private readonly emprestimoService : ProdutoEmprestimoService,
     private readonly dialog : Dialog
   ){}
+
+  ngOnInit(): void {
+    this.produtosSubscription = this.emprestimoService.obterProdutos().subscribe({
+      next: (produtos)=>{
+        this.produtos = produtos;
+      }
+    });
+  }
 
   abrirModalCadastroProduto(){
     
@@ -35,13 +42,9 @@ export class ListagemProdutosComponent {
     })
   }
 
-  fecharModalCadastroProduto(){
-    
-  }
-
   cadastrarProduto(produto : Produto){
     
-    this.fecharModalCadastroProduto();
+    this.emprestimoService.adicionarProduto(produto);
 
   }
 }
